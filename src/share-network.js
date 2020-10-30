@@ -1,4 +1,5 @@
 import AvailableNetworks from './networks'
+import { useBrowserAgentRelated } from './browser_agent.js';
 
 let $window = typeof window !== 'undefined' ? window : null
 
@@ -92,6 +93,13 @@ export default {
         width: 626,
         height: 436
       })
+    }
+  },
+  setup(props, { root }) {
+    const browserAgentRelated = useBrowserAgentRelated( root );
+    return {
+      //useBrowserAgentRelated
+      ...browserAgentRelated
     }
   },
 
@@ -217,8 +225,7 @@ export default {
 
         this.emit('change')
       }
-
-      this.popupWindow = $window.open(
+      const tmp = $window.open(
         this.shareLink,
         'sharer-' + this.key,
         ',height=' + this.popup.height +
@@ -227,7 +234,10 @@ export default {
         ',top=' + this.popupTop +
         ',screenX=' + this.popupLeft +
         ',screenY=' + this.popupTop
-      )
+      );
+      // console.log("!browserAgent.isIE && !browserAgent.isEdge",!this.browserAgent.isIE && !this.browserAgent.isEdge);
+      if (!this.browserAgent.isIE && !this.browserAgent.isEdge)
+        this.popupWindow = tmp;
 
       // If popup are prevented (AdBlocker, Mobile App context..), popup.window stays undefined and we can't display it
       if (!this.popupWindow) return
