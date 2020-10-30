@@ -45,7 +45,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicolasbeauvais/vue-social-sharing.git"
+    "url": "git+https://github.com/thomasnerd/vue-social-sharing.git"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
